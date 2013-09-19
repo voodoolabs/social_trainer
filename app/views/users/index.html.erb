@@ -1,4 +1,5 @@
 <section class="home"> 
+  <h1><%= current_user %></h1>
   <h1>Welcome to Social Trainer</h1>
     <%= form_for :user, url: sessions_path do |f| %> 
     <p>
@@ -13,5 +14,5 @@
       <%= f.submit %>
     </p>
     <% end %>
-<section>
+</section>
 

@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email, null: false
       t.boolean :status, default: false
       t.integer :friend_id
+      t.string :photo_url
 
       t.timestamps
     end
