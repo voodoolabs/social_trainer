@@ -1,0 +1,12 @@
+<section class="feed">
+  <ul>
+  <% @posts.each do |post| %> 
+    <li>
+      <h5><%= the_user = User.find_by(id: post.user_id).name %></h5>
+      <h4><%= post.title %></h4>
+      <%= link_to the_user %>
+      <p><%= post.text_field%></p>
+    </li>
+  <% end %>
+  </ul>
+</section>
