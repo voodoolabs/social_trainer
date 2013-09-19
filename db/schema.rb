@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20130918230004) do
     t.string   "email",                                 null: false
     t.boolean  "status",                default: false
     t.integer  "friend_id"
+    t.string   "photo_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

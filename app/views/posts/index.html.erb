@@ -1,11 +1,29 @@
 <section class="feed">
+  <h1><%= image_tag current_user.photo_url, {height:45} %><%= current_user.name %></h1>
+  <%= render partial: 'new', layout: false %>
   <ul>
   <% @posts.each do |post| %>
     <li>
-      <h5><%= the_user = User.find_by(id: post.user_id).name %></h5>
+      <h3><%= image_tag User.find_by(id: post.user_id).photo_url, {height:30} %><%= the_user = User.find_by(id: post.user_id).name %></h3>
       <h4><%= post.title %></h4>
-      <%= link_to the_user %>
-      <p><%= post.text_field%></p>
+      <li>
+        <p class="posts"><%= post.text_field%></p>
+        <h6><%= post.created_at %></h6>
+      </li>
+      <ul>  
+        <hr>
+        <%= render partial: 'comments/new', locals: {post: post} %>
+        <hr>
+        <% if post.comments.first %>
+          <% post.comments.each do |com|%>
+          <h5><%= image_tag User.find_by(id: com.user_id).photo_url, {height:20} %><%= User.find_by(id: com.user_id).name %></h5>  
+            <%= com.content %>
+          <h6><%= com.created_at %></h6>
+        </li>
+          <% end %>
+        <% end %>
+      </ul>
+      <hr>
     </li>
   <% end %>
   </ul>

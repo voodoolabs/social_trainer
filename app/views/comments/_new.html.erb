@@ -1,0 +1,14 @@
+<div class="new_comment"> 
+    <%= form_for :comment, url: user_post_comments_path(current_user.id, post.id) do |f| %> 
+    <p>
+      <%= f.label "Comment" %>
+      <%= f.text_field :content %>
+    </p>
+    <p>
+      <% f.hidden_field :post_id, value: post.id %>
+    </p>
+    <p>
+      <%= f.submit "Comment" %>
+    </p>
+    <% end %>
+</div>
