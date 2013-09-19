@@ -1,0 +1,657 @@
+  [1m[36m (2.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.3ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20130918225615)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (3.3ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "status" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.7ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_users_on_id" ON "users" ("id")[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225615"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreatePosts (20130918225745)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.9ms)[0m  [1mCREATE TABLE "posts" ("id" serial primary key, "user_id" integer NOT NULL, "title" character varying(255) NOT NULL, "text_field" text NOT NULL, "type" character varying(255) DEFAULT 'standard', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_posts_on_id" ON "posts" ("id")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_posts_on_user_id" ON "posts" ("user_id")[0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_posts_on_type" ON "posts" ("type")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918225745"]]
+  [1m[35m (0.7ms)[0m  COMMIT
+Migrating to CreateComments (20130918225819)
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.8ms)[0m  CREATE TABLE "comments" ("id" serial primary key, "post_id" integer NOT NULL, "user_id" integer NOT NULL, "content" text NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_comments_on_id" ON "comments" ("id")[0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_comments_on_user_id" ON "comments" ("user_id")
+  [1m[36m (0.5ms)[0m  [1mCREATE INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225819"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateLikes (20130918225853)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (1.9ms)[0m  [1mCREATE TABLE "likes" ("id" serial primary key, "post_id" integer, "liker_id" integer NOT NULL, "comment_id" integer, "value" boolean NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.8ms)[0m  CREATE INDEX "index_likes_on_id" ON "likes" ("id")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_likes_on_value" ON "likes" ("value")[0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_likes_on_post_id" ON "likes" ("post_id")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918225853"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to CreateFriends (20130918230004)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.7ms)[0m  CREATE TABLE "friends" ("id" serial primary key, "requester_id" integer NOT NULL, "acceptor_id" integer NOT NULL, "status" character varying(255) DEFAULT 'pending', "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_friends_on_requester_id" ON "friends" ("requester_id")[0m
+  [1m[35m (0.7ms)[0m  CREATE INDEX "index_friends_on_acceptor_id" ON "friends" ("acceptor_id")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918230004"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.9ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@email.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@email.com' LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36m (2.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.2ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20130918225615)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.4ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "password_confirmation" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "status" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.7ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (0.5ms)[0m  [1mCREATE INDEX "index_users_on_id" ON "users" ("id")[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225615"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreatePosts (20130918225745)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.8ms)[0m  [1mCREATE TABLE "posts" ("id" serial primary key, "user_id" integer NOT NULL, "title" character varying(255) NOT NULL, "text_field" text NOT NULL, "type" character varying(255) DEFAULT 'standard', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.8ms)[0m  CREATE INDEX "index_posts_on_id" ON "posts" ("id")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_posts_on_user_id" ON "posts" ("user_id")[0m
+  [1m[35m (0.5ms)[0m  CREATE INDEX "index_posts_on_type" ON "posts" ("type")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918225745"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to CreateComments (20130918225819)
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.8ms)[0m  CREATE TABLE "comments" ("id" serial primary key, "post_id" integer NOT NULL, "user_id" integer NOT NULL, "content" text NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_comments_on_id" ON "comments" ("id")[0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_comments_on_user_id" ON "comments" ("user_id")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225819"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateLikes (20130918225853)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (1.9ms)[0m  [1mCREATE TABLE "likes" ("id" serial primary key, "post_id" integer, "liker_id" integer NOT NULL, "comment_id" integer, "value" boolean NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.7ms)[0m  CREATE INDEX "index_likes_on_id" ON "likes" ("id")
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_likes_on_value" ON "likes" ("value")[0m
+  [1m[35m (0.7ms)[0m  CREATE INDEX "index_likes_on_post_id" ON "likes" ("post_id")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918225853"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+Migrating to CreateFriends (20130918230004)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.8ms)[0m  CREATE TABLE "friends" ("id" serial primary key, "requester_id" integer NOT NULL, "acceptor_id" integer NOT NULL, "status" character varying(255) DEFAULT 'pending', "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_friends_on_requester_id" ON "friends" ("requester_id")[0m
+  [1m[35m (0.5ms)[0m  CREATE INDEX "index_friends_on_acceptor_id" ON "friends" ("acceptor_id")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918230004"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@email.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@email.com' LIMIT 1[0m
+  [1m[35mSQL (7.6ms)[0m  INSERT INTO "users" ("created_at", "email", "name", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 00:15:20 UTC +00:00], ["email", "john@email.com"], ["name", "Johnathon"], ["password_digest", "$2a$10$y64j3m0j8YUUCN.pMrdNIe6/beYQg8jjNYdQmUUHz9WvXbBz2VIly"], ["updated_at", Thu, 19 Sep 2013 00:15:20 UTC +00:00]]
+PG::NotNullViolation: ERROR:  null value in column "password_confirmation" violates not-null constraint
+DETAIL:  Failing row contains (1, Johnathon, $2a$10$y64j3m0j8YUUCN.pMrdNIe6/beYQg8jjNYdQmUUHz9WvXbBz2VIly, null, john@email.com, f, 2013-09-19 00:15:20.037036, 2013-09-19 00:15:20.037036).
+: INSERT INTO "users" ("created_at", "email", "name", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@email.com' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@email.com' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@email.com' LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (1.0ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@email.com' LIMIT 1
+  [1m[36mSQL (4.7ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Thu, 19 Sep 2013 00:22:51 UTC +00:00], ["email", "john@email.com"], ["name", "Johnathon"], ["password_digest", "$2a$10$RI8C7TtdBSvrpgeIJn6MFOCrHCUbZfGjzHZVNOJUU7FN4GG6p.tiu"], ["updated_at", Thu, 19 Sep 2013 00:22:51 UTC +00:00]]
+PG::NotNullViolation: ERROR:  null value in column "password_confirmation" violates not-null constraint
+DETAIL:  Failing row contains (2, Johnathon, $2a$10$RI8C7TtdBSvrpgeIJn6MFOCrHCUbZfGjzHZVNOJUU7FN4GG6p.tiu, null, john@email.com, f, 2013-09-19 00:22:51.067132, 2013-09-19 00:22:51.067132).
+: INSERT INTO "users" ("created_at", "email", "name", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (2.8ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.3ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20130918225615)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.2ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "password_confirmation" character varying(255) NOT NULL, "email" character varying(255) NOT NULL, "status" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.6ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_users_on_id" ON "users" ("id")[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225615"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to CreatePosts (20130918225745)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.8ms)[0m  [1mCREATE TABLE "posts" ("id" serial primary key, "user_id" integer NOT NULL, "title" character varying(255) NOT NULL, "text_field" text NOT NULL, "type" character varying(255) DEFAULT 'standard', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.7ms)[0m  CREATE INDEX "index_posts_on_id" ON "posts" ("id")
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_posts_on_user_id" ON "posts" ("user_id")[0m
+  [1m[35m (0.8ms)[0m  CREATE INDEX "index_posts_on_type" ON "posts" ("type")
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918225745"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to CreateComments (20130918225819)
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.7ms)[0m  CREATE TABLE "comments" ("id" serial primary key, "post_id" integer NOT NULL, "user_id" integer NOT NULL, "content" text NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.8ms)[0m  [1mCREATE INDEX "index_comments_on_id" ON "comments" ("id")[0m
+  [1m[35m (0.7ms)[0m  CREATE INDEX "index_comments_on_user_id" ON "comments" ("user_id")
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225819"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateLikes (20130918225853)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE "likes" ("id" serial primary key, "post_id" integer, "liker_id" integer NOT NULL, "comment_id" integer, "value" boolean NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.7ms)[0m  CREATE INDEX "index_likes_on_id" ON "likes" ("id")
+  [1m[36m (0.8ms)[0m  [1mCREATE INDEX "index_likes_on_value" ON "likes" ("value")[0m
+  [1m[35m (0.7ms)[0m  CREATE INDEX "index_likes_on_post_id" ON "likes" ("post_id")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918225853"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateFriends (20130918230004)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.8ms)[0m  CREATE TABLE "friends" ("id" serial primary key, "requester_id" integer NOT NULL, "acceptor_id" integer NOT NULL, "status" character varying(255) DEFAULT 'pending', "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_friends_on_requester_id" ON "friends" ("requester_id")[0m
+  [1m[35m (0.5ms)[0m  CREATE INDEX "index_friends_on_acceptor_id" ON "friends" ("acceptor_id")
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918230004"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.9ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@email.com' LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@email.com' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.3ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@email.com' LIMIT 1
+  [1m[36mSQL (4.3ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Thu, 19 Sep 2013 00:27:20 UTC +00:00], ["email", "john@email.com"], ["name", "Johnathon"], ["password_digest", "$2a$10$5rQ2euwC/k6uiMLR2XUBtucb3RSJciIlLTRe1yuE1JOzj9IR1Fb7W"], ["updated_at", Thu, 19 Sep 2013 00:27:20 UTC +00:00]]
+PG::NotNullViolation: ERROR:  null value in column "password_confirmation" violates not-null constraint
+DETAIL:  Failing row contains (1, Johnathon, $2a$10$5rQ2euwC/k6uiMLR2XUBtucb3RSJciIlLTRe1yuE1JOzj9IR1Fb7W, null, john@email.com, f, 2013-09-19 00:27:20.959694, 2013-09-19 00:27:20.959694).
+: INSERT INTO "users" ("created_at", "email", "name", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (2.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.4ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20130918225615)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.5ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "password_confirmation" character varying(255), "email" character varying(255) NOT NULL, "status" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.8ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_users_on_id" ON "users" ("id")[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225615"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreatePosts (20130918225745)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (2.8ms)[0m  [1mCREATE TABLE "posts" ("id" serial primary key, "user_id" integer NOT NULL, "title" character varying(255) NOT NULL, "text_field" text NOT NULL, "type" character varying(255) DEFAULT 'standard', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_posts_on_id" ON "posts" ("id")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_posts_on_user_id" ON "posts" ("user_id")[0m
+  [1m[35m (0.7ms)[0m  CREATE INDEX "index_posts_on_type" ON "posts" ("type")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918225745"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+Migrating to CreateComments (20130918225819)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.9ms)[0m  CREATE TABLE "comments" ("id" serial primary key, "post_id" integer NOT NULL, "user_id" integer NOT NULL, "content" text NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_comments_on_id" ON "comments" ("id")[0m
+  [1m[35m (0.8ms)[0m  CREATE INDEX "index_comments_on_user_id" ON "comments" ("user_id")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225819"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateLikes (20130918225853)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE "likes" ("id" serial primary key, "post_id" integer, "liker_id" integer NOT NULL, "comment_id" integer, "value" boolean NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_likes_on_id" ON "likes" ("id")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_likes_on_value" ON "likes" ("value")[0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_likes_on_post_id" ON "likes" ("post_id")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918225853"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to CreateFriends (20130918230004)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.8ms)[0m  CREATE TABLE "friends" ("id" serial primary key, "requester_id" integer NOT NULL, "acceptor_id" integer NOT NULL, "status" character varying(255) DEFAULT 'pending', "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_friends_on_requester_id" ON "friends" ("requester_id")[0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_friends_on_acceptor_id" ON "friends" ("acceptor_id")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918230004"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.9ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@email.com' LIMIT 1
+  [1m[36mSQL (4.2ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Thu, 19 Sep 2013 00:29:17 UTC +00:00], ["email", "john@email.com"], ["name", "Johnathon"], ["password_digest", "$2a$10$du4c/BFFQ00Xzr.R9c2MYO210bpfMV0zQr33cSVcwAkTp6g3BkK2i"], ["updated_at", Thu, 19 Sep 2013 00:29:17 UTC +00:00]]
+  [1m[35m (1.1ms)[0m  COMMIT
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.3ms)[0m  [1mINSERT INTO "posts" ("created_at", "text_field", "title", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Thu, 19 Sep 2013 00:33:21 UTC +00:00], ["text_field", "This is a post"], ["title", "Post 1"], ["updated_at", Thu, 19 Sep 2013 00:33:21 UTC +00:00], ["user_id", 1]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mUser Load (0.9ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mPost Load (0.8ms)[0m  SELECT "posts".* FROM "posts" WHERE "posts"."user_id" = $1  [["user_id", 1]]
+  [1m[36m (2.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.4ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20130918225615)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.1ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "password_confirmation" character varying(255), "email" character varying(255) NOT NULL, "status" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.7ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_users_on_id" ON "users" ("id")[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225615"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreatePosts (20130918225745)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.9ms)[0m  [1mCREATE TABLE "posts" ("id" serial primary key, "user_id" integer NOT NULL, "title" character varying(255) NOT NULL, "text_field" text NOT NULL, "post_type" character varying(255) DEFAULT 'standard', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.7ms)[0m  CREATE INDEX "index_posts_on_id" ON "posts" ("id")
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_posts_on_user_id" ON "posts" ("user_id")[0m
+  [1m[35m (0.7ms)[0m  CREATE INDEX "index_posts_on_type" ON "posts" ("type")
+PG::UndefinedColumn: ERROR:  column "type" does not exist
+: CREATE  INDEX  "index_posts_on_type" ON "posts"  ("type")
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36m (2.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.2ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20130918225615)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.5ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "password_confirmation" character varying(255), "email" character varying(255) NOT NULL, "status" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.7ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_users_on_id" ON "users" ("id")[0m
+  [1m[35mSQL (1.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225615"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreatePosts (20130918225745)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (3.4ms)[0m  [1mCREATE TABLE "posts" ("id" serial primary key, "user_id" integer NOT NULL, "title" character varying(255) NOT NULL, "text_field" text NOT NULL, "post_type" character varying(255) DEFAULT 'standard', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_posts_on_id" ON "posts" ("id")
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_posts_on_user_id" ON "posts" ("user_id")[0m
+  [1m[35m (0.5ms)[0m  CREATE INDEX "index_posts_on_post_type" ON "posts" ("post_type")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918225745"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateComments (20130918225819)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.6ms)[0m  CREATE TABLE "comments" ("id" serial primary key, "post_id" integer NOT NULL, "user_id" integer NOT NULL, "content" text NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_comments_on_id" ON "comments" ("id")[0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_comments_on_user_id" ON "comments" ("user_id")
+  [1m[36m (0.5ms)[0m  [1mCREATE INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225819"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateLikes (20130918225853)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE "likes" ("id" serial primary key, "post_id" integer, "liker_id" integer NOT NULL, "comment_id" integer, "value" boolean NOT NULL, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_likes_on_id" ON "likes" ("id")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_likes_on_value" ON "likes" ("value")[0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_likes_on_post_id" ON "likes" ("post_id")
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918225853"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateFriends (20130918230004)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.8ms)[0m  CREATE TABLE "friends" ("id" serial primary key, "requester_id" integer NOT NULL, "acceptor_id" integer NOT NULL, "status" character varying(255) DEFAULT 'pending', "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_friends_on_requester_id" ON "friends" ("requester_id")[0m
+  [1m[35m (0.5ms)[0m  CREATE INDEX "index_friends_on_acceptor_id" ON "friends" ("acceptor_id")
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918230004"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.9ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@email.com' LIMIT 1
+  [1m[36mSQL (4.5ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Thu, 19 Sep 2013 00:36:32 UTC +00:00], ["email", "john@email.com"], ["name", "Johnathon"], ["password_digest", "$2a$10$6yDYgpCLc.R/5i2IuUASFOxSpHfDk3uKtQ0Hj7PppDf9bDDEujCKm"], ["updated_at", Thu, 19 Sep 2013 00:36:32 UTC +00:00]]
+  [1m[35m (1.0ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.4ms)[0m  INSERT INTO "posts" ("created_at", "text_field", "title", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 00:36:42 UTC +00:00], ["text_field", "This is a post"], ["title", "Post 1"], ["updated_at", Thu, 19 Sep 2013 00:36:42 UTC +00:00], ["user_id", 1]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (1.0ms)[0m  SELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mPost Load (1.0ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."user_id" = $1[0m  [["user_id", 1]]
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "this is a comment about post 1"], ["created_at", Thu, 19 Sep 2013 00:37:52 UTC +00:00], ["post_id", 1], ["updated_at", Thu, 19 Sep 2013 00:37:52 UTC +00:00], ["user_id", 1]]
+  [1m[35m (1.1ms)[0m  COMMIT
+  [1m[36mPost Load (0.6ms)[0m  [1mSELECT "posts".* FROM "posts" ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35mComment Load (0.8ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."post_id" = $1  [["post_id", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mComment Load (0.5ms)[0m  SELECT "comments".* FROM "comments" WHERE "comments"."user_id" = $1  [["user_id", 1]]
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (2.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.2ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20130918225615)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.2ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "password_confirmation" character varying(255), "email" character varying(255) NOT NULL, "status" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.7ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_users_on_id" ON "users" ("id")[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225615"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreatePosts (20130918225745)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.8ms)[0m  [1mCREATE TABLE "posts" ("id" serial primary key, "user_id" integer NOT NULL, "title" character varying(255) NOT NULL, "text_field" text NOT NULL, "post_type" character varying(255) DEFAULT 'standard', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_posts_on_id" ON "posts" ("id")
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_posts_on_user_id" ON "posts" ("user_id")[0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_posts_on_post_type" ON "posts" ("post_type")
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918225745"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+Migrating to CreateComments (20130918225819)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.9ms)[0m  CREATE TABLE "comments" ("id" serial primary key, "post_id" integer NOT NULL, "user_id" integer NOT NULL, "content" text NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.8ms)[0m  [1mCREATE INDEX "index_comments_on_id" ON "comments" ("id")[0m
+  [1m[35m (0.7ms)[0m  CREATE INDEX "index_comments_on_user_id" ON "comments" ("user_id")
+  [1m[36m (0.5ms)[0m  [1mCREATE INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225819"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Migrating to CreateLikes (20130918225853)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.0ms)[0m  [1mCREATE TABLE "likes" ("id" serial primary key, "post_id" integer, "liker_id" integer NOT NULL, "comment_id" integer, "value" boolean, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_likes_on_id" ON "likes" ("id")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_likes_on_value" ON "likes" ("value")[0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_likes_on_post_id" ON "likes" ("post_id")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918225853"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+Migrating to CreateFriends (20130918230004)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.9ms)[0m  CREATE TABLE "friends" ("id" serial primary key, "requester_id" integer NOT NULL, "acceptor_id" integer NOT NULL, "status" character varying(255) DEFAULT 'pending', "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_friends_on_requester_id" ON "friends" ("requester_id")[0m
+  [1m[35m (0.7ms)[0m  CREATE INDEX "index_friends_on_acceptor_id" ON "friends" ("acceptor_id")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918230004"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.9ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'john@email.com' LIMIT 1
+  [1m[36mSQL (4.9ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Thu, 19 Sep 2013 00:42:17 UTC +00:00], ["email", "john@email.com"], ["name", "Johnathon"], ["password_digest", "$2a$10$2oENBo./qogqT6xt5ttprubqw0jIeoOfY7sdHCoveSZju293WpdY2"], ["updated_at", Thu, 19 Sep 2013 00:42:17 UTC +00:00]]
+  [1m[35m (0.9ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO "posts" ("created_at", "text_field", "title", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 00:42:22 UTC +00:00], ["text_field", "This is a post"], ["title", "Post 1"], ["updated_at", Thu, 19 Sep 2013 00:42:22 UTC +00:00], ["user_id", 1]]
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "this is a comment about post 1"], ["created_at", Thu, 19 Sep 2013 00:42:32 UTC +00:00], ["post_id", 1], ["updated_at", Thu, 19 Sep 2013 00:42:32 UTC +00:00], ["user_id", 1]]
+  [1m[35m (1.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (4.6ms)[0m  INSERT INTO "likes" ("created_at", "liker_id", "post_id", "updated_at", "value") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 00:43:07 UTC +00:00], ["liker_id", 1], ["post_id", 1], ["updated_at", Thu, 19 Sep 2013 00:43:07 UTC +00:00], ["value", false]]
+  [1m[36m (0.9ms)[0m  [1mCOMMIT[0m
+  [1m[35mPost Load (0.7ms)[0m  SELECT "posts".* FROM "posts" ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36mLike Load (0.7ms)[0m  [1mSELECT "likes".* FROM "likes" WHERE "likes"."post_id" = $1[0m  [["post_id", 1]]
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mLike Load (0.6ms)[0m  [1mSELECT "likes".* FROM "likes" WHERE "likes"."liker_id" = $1[0m  [["liker_id", 1]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (4.6ms)[0m  INSERT INTO "likes" ("created_at", "liker_id", "post_id", "updated_at", "value") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 00:44:19 UTC +00:00], ["liker_id", 1], ["post_id", 1], ["updated_at", Thu, 19 Sep 2013 00:44:19 UTC +00:00], ["value", true]]
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "likes" ("comment_id", "created_at", "liker_id", "updated_at", "value") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["comment_id", 1], ["created_at", Thu, 19 Sep 2013 00:44:57 UTC +00:00], ["liker_id", 1], ["updated_at", Thu, 19 Sep 2013 00:44:57 UTC +00:00], ["value", true]]
+  [1m[35m (1.9ms)[0m  COMMIT
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mLike Load (0.6ms)[0m  SELECT "likes".* FROM "likes" WHERE "likes"."liker_id" = $1  [["liker_id", 1]]
+  [1m[36mPost Load (0.5ms)[0m  [1mSELECT "posts".* FROM "posts" ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35mPost Load (0.4ms)[0m  SELECT "posts".* FROM "posts" ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36mLike Load (0.5ms)[0m  [1mSELECT "likes".* FROM "likes" WHERE "likes"."post_id" = $1[0m  [["post_id", 1]]
+  [1m[35mPost Load (0.8ms)[0m  SELECT "posts".* FROM "posts" ORDER BY "posts"."id" ASC LIMIT 1
+  [1m[36mLike Load (0.6ms)[0m  [1mSELECT "likes".* FROM "likes" WHERE "likes"."post_id" = $1 ORDER BY "likes"."id" ASC LIMIT 1[0m  [["post_id", 1]]
+  [1m[36mPost Load (0.7ms)[0m  [1mSELECT "posts".* FROM "posts" ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[36mPost Load (0.7ms)[0m  [1mSELECT "posts".* FROM "posts" ORDER BY "posts"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (4.2ms)[0m  SELECT "users".* FROM "users" INNER JOIN "likes" ON "users"."id" = "likes"."liker_id" WHERE "likes"."post_id" = $1  [["post_id", 1]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mUser Exists (0.7ms)[0m  SELECT 1 AS one FROM "users" WHERE "users"."email" = 'steve@email.com' LIMIT 1
+  [1m[36mSQL (1.8ms)[0m  [1mINSERT INTO "users" ("created_at", "email", "name", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Thu, 19 Sep 2013 00:57:25 UTC +00:00], ["email", "steve@email.com"], ["name", "Steve"], ["password_digest", "$2a$10$D2FxmeGCLnZkpZzCReSBxeW7VQTnIzk2FKhmQcI5Mh1pQXhOW4/86"], ["updated_at", Thu, 19 Sep 2013 00:57:25 UTC +00:00]]
+  [1m[35m (1.8ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (2.9ms)[0m  INSERT INTO "friends" ("acceptor_id", "created_at", "requester_id", "status", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["acceptor_id", 2], ["created_at", Thu, 19 Sep 2013 00:58:04 UTC +00:00], ["requester_id", 1], ["status", "accepted"], ["updated_at", Thu, 19 Sep 2013 00:58:04 UTC +00:00]]
+  [1m[36m (0.7ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.6ms)[0m  SELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mFriend Load (0.6ms)[0m  [1mSELECT "friends".* FROM "friends" WHERE "friends"."user_id" = $1[0m  [[nil, 1]]
+PG::UndefinedColumn: ERROR:  column friends.user_id does not exist
+LINE 1: SELECT "friends".* FROM "friends"  WHERE "friends"."user_id"...
+                                                 ^
+: SELECT "friends".* FROM "friends"  WHERE "friends"."user_id" = $1
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mFriend Load (3.3ms)[0m  SELECT "friends".* FROM "friends" WHERE "friends"."requester_id" = $1  [["requester_id", 1]]
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mFriend Load (0.4ms)[0m  SELECT "friends".* FROM "friends" WHERE "friends"."requester_id" = $1  [["requester_id", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mFriend Load (0.4ms)[0m  SELECT "friends".* FROM "friends" WHERE "friends"."requester_id" = $1  [["requester_id", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mFriend Load (0.7ms)[0m  SELECT "friends".* FROM "friends" WHERE "friends"."requester_id" = $1 ORDER BY "friends"."id" ASC LIMIT 1  [["requester_id", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mFriend Load (0.4ms)[0m  SELECT "friends".* FROM "friends" WHERE "friends"."requester_id" = $1  [["requester_id", 1]]
+  [1m[36mFriend Load (0.6ms)[0m  [1mSELECT "friends".* FROM "friends" ORDER BY "friends"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (3.3ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mUser Load (0.6ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mFriend Load (0.7ms)[0m  SELECT "friends".* FROM "friends" WHERE "friends"."requester_id" = $1  [["requester_id", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mFriend Load (0.7ms)[0m  SELECT "friends".* FROM "friends" WHERE "friends"."requester_id" = $1 ORDER BY "friends"."id" ASC LIMIT 1  [["requester_id", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mFriend Load (0.4ms)[0m  SELECT "friends".* FROM "friends" WHERE "friends"."requester_id" = $1 ORDER BY "friends"."id" ASC LIMIT 1  [["requester_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.7ms)[0m  SELECT "posts".* FROM "posts" WHERE "posts"."user_id" = $1  [["user_id", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mFriend Load (0.4ms)[0m  SELECT "friends".* FROM "friends" WHERE "friends"."requester_id" = $1  [["requester_id", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mFriend Load (0.4ms)[0m  SELECT "friends".* FROM "friends" WHERE "friends"."requester_id" = $1 ORDER BY "friends"."id" ASC LIMIT 1  [["requester_id", 1]]
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mUser Load (0.5ms)[0m  SELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36mFriend Load (0.4ms)[0m  [1mSELECT "friends".* FROM "friends" WHERE "friends"."requester_id" = $1 ORDER BY "friends"."id" ASC LIMIT 1[0m  [["requester_id", 1]]
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mFriend Load (0.4ms)[0m  [1mSELECT "friends".* FROM "friends"[0m
+  [1m[35mUser Load (0.6ms)[0m  SELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35mFriend Load (0.3ms)[0m  SELECT "friends".* FROM "friends" WHERE "friends"."requester_id" = $1  [["requester_id", 2]]
+  [1m[36m (2.5ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.3ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20130918225615)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "password_confirmation" character varying(255), "email" character varying(255) NOT NULL, "status" boolean DEFAULT 'f', "friend_id" integer DEFAULT 'id', "created_at" timestamp, "updated_at" timestamp) [0m
+PG::InvalidTextRepresentation: ERROR:  invalid input syntax for integer: "id"
+: CREATE TABLE "users" ("id" serial primary key, "name" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "password_confirmation" character varying(255), "email" character varying(255) NOT NULL, "status" boolean DEFAULT 'f', "friend_id" integer DEFAULT 'id', "created_at" timestamp, "updated_at" timestamp) 
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (2.7ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.2ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20130918225615)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36m (2.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.2ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20130918225615)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.2ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying(255) NOT NULL, "password_digest" character varying(255) NOT NULL, "password_confirmation" character varying(255), "email" character varying(255) NOT NULL, "status" boolean DEFAULT 'f', "friend_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.7ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_users_on_id" ON "users" ("id")[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225615"]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+Migrating to CreatePosts (20130918225745)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.7ms)[0m  [1mCREATE TABLE "posts" ("id" serial primary key, "user_id" integer NOT NULL, "title" character varying(255) NOT NULL, "text_field" text NOT NULL, "post_type" character varying(255) DEFAULT 'standard', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_posts_on_id" ON "posts" ("id")
+  [1m[36m (0.5ms)[0m  [1mCREATE INDEX "index_posts_on_user_id" ON "posts" ("user_id")[0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_posts_on_post_type" ON "posts" ("post_type")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918225745"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to CreateComments (20130918225819)
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.6ms)[0m  CREATE TABLE "comments" ("id" serial primary key, "post_id" integer NOT NULL, "user_id" integer NOT NULL, "content" text NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_comments_on_id" ON "comments" ("id")[0m
+  [1m[35m (0.5ms)[0m  CREATE INDEX "index_comments_on_user_id" ON "comments" ("user_id")
+  [1m[36m (0.5ms)[0m  [1mCREATE INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225819"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateLikes (20130918225853)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (1.6ms)[0m  [1mCREATE TABLE "likes" ("id" serial primary key, "post_id" integer, "liker_id" integer NOT NULL, "comment_id" integer, "value" boolean, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_likes_on_id" ON "likes" ("id")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_likes_on_value" ON "likes" ("value")[0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_likes_on_post_id" ON "likes" ("post_id")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918225853"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to CreateFriendships (20130918230004)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.7ms)[0m  CREATE TABLE "friendships" ("id" serial primary key, "user_id" integer NOT NULL, "friend_id" integer NOT NULL, "status" character varying(255) DEFAULT 'pending', "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_friendships_on_user_id" ON "friendships" ("user_id")[0m
+  [1m[35m (0.7ms)[0m  CREATE INDEX "index_friendships_on_friend_id" ON "friendships" ("friend_id")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918230004"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.9ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'j@j.com' LIMIT 1[0m
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.8ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'j@j.com' LIMIT 1[0m
+  [1m[35mSQL (5.2ms)[0m  INSERT INTO "users" ("created_at", "email", "friend_id", "name", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 01:57:35 UTC +00:00], ["email", "j@j.com"], ["friend_id", 1], ["name", "John"], ["password_digest", "$2a$10$ITE8iB3oIz3yG69ZhJozA.M2GSK6bKzsExji2RnKKFU95T93W/OTu"], ["updated_at", Thu, 19 Sep 2013 01:57:35 UTC +00:00]]
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'n@n.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "friend_id", "name", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 01:57:35 UTC +00:00], ["email", "n@n.com"], ["friend_id", 2], ["name", "Nick"], ["password_digest", "$2a$10$pb2rV.HcYyuiAA5Q1hEzWOS2hbFe2yNM9EBaWDq4k0oUYv6nyVLW6"], ["updated_at", Thu, 19 Sep 2013 01:57:35 UTC +00:00]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'c@c.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("created_at", "email", "friend_id", "name", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 01:57:35 UTC +00:00], ["email", "c@c.com"], ["friend_id", 3], ["name", "Cory"], ["password_digest", "$2a$10$9HI.r.2pC2JMAxnuf3Nsb.GlkhHuzPje2yGFhOQFwTOY/EF3d1R0."], ["updated_at", Thu, 19 Sep 2013 01:57:35 UTC +00:00]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.3ms)[0m  [1mSELECT 1 AS one FROM "users" WHERE "users"."email" = 'w@w.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("created_at", "email", "friend_id", "name", "password_digest", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 01:57:35 UTC +00:00], ["email", "w@w.com"], ["friend_id", 4], ["name", "Wendy"], ["password_digest", "$2a$10$FbGsK/Mg7tk6CisOYGmx1O8E1n6IeY3gpgHRPFkhJuEaKHnnEs53W"], ["updated_at", Thu, 19 Sep 2013 01:57:35 UTC +00:00]]
+  [1m[36m (0.6ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "posts" ("created_at", "text_field", "title", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Thu, 19 Sep 2013 01:57:35 UTC +00:00], ["text_field", "Illum corporis qui. Labore in recusandae minus temporibus. Voluptas mollitia et aspernatur et."], ["title", "Amet iste aliquam id beatae."], ["updated_at", Thu, 19 Sep 2013 01:57:35 UTC +00:00], ["user_id", 4]]
+  [1m[35m (1.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "posts" ("created_at", "text_field", "title", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 01:57:35 UTC +00:00], ["text_field", "Quis tenetur at sit pariatur in cupiditate laudantium. Vero est quasi in et optio. Et nisi eaque. Distinctio placeat voluptas sequi ut. Dolorum voluptatem et."], ["title", "Asperiores non officia voluptatem tenetur."], ["updated_at", Thu, 19 Sep 2013 01:57:35 UTC +00:00], ["user_id", 3]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "posts" ("created_at", "text_field", "title", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Thu, 19 Sep 2013 01:57:35 UTC +00:00], ["text_field", "Hic non amet mollitia qui illo. Ut et ipsam ea. At facilis sed nesciunt."], ["title", "Fugiat ipsam sit quas ducimus."], ["updated_at", Thu, 19 Sep 2013 01:57:35 UTC +00:00], ["user_id", 2]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "posts" ("created_at", "text_field", "title", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["text_field", "Nihil ut molestias vero distinctio fuga libero. Doloribus voluptas illo harum labore. Neque rerum est reiciendis."], ["title", "Nostrum et ea mollitia."], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 1]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "posts" ("created_at", "text_field", "title", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["text_field", "Id possimus similique ea maiores est provident quia. Pariatur at sint in atque est ratione. Sunt voluptates sunt laudantium vitae qui. Animi assumenda et ipsum. Consequatur nam a porro consequatur cupiditate."], ["title", "Quo illo deleniti eligendi perferendis porro beatae autem."], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 2]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "posts" ("created_at", "text_field", "title", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["text_field", "Officia et velit tenetur. Pariatur facere repellendus animi voluptas neque ipsa rerum. Et quos nulla molestias nostrum. Ut aut hic tempore provident laudantium aut sed. Inventore numquam voluptatem enim quis voluptas non voluptate."], ["title", "Quia maiores culpa laudantium."], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 1]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "posts" ("created_at", "text_field", "title", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["text_field", "Corrupti fuga dignissimos aspernatur debitis sed molestiae odio. In minus aut odio. Unde quibusdam omnis quia dolor rem reiciendis et."], ["title", "Consequatur rerum consequatur harum."], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 2]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "posts" ("created_at", "text_field", "title", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["text_field", "Expedita nihil quo. Dolor odio ex quos pariatur qui quia sint. Vitae necessitatibus eum eum. Quia amet nobis."], ["title", "Quia placeat quibusdam iusto reprehenderit quas."], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 2]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "posts" ("created_at", "text_field", "title", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["text_field", "Est vero aut ut consequatur esse. Veritatis quia earum quia expedita repudiandae. Reiciendis sit quia explicabo et. Omnis qui adipisci aut expedita ipsam non. Adipisci sapiente id tenetur occaecati sit nobis tempora."], ["title", "Mollitia est a est in assumenda."], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 3]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "posts" ("created_at", "text_field", "title", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["text_field", "Earum voluptatem fuga voluptate corrupti. Ullam illum cumque sed molestias nesciunt. Officiis a recusandae aspernatur libero magnam excepturi. Cum aut et voluptates labore eos. Animi eius cum dolor ullam dignissimos incidunt cumque."], ["title", "Id quo perspiciatis quo minima veniam est sunt."], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 1]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "Voluptatibus pariatur vel illo eius. Quia quia id sit totam fugit sed non. Aut architecto totam omnis quo nihil minus distinctio. Nulla atque aut ut. Eius nihil assumenda ut quia adipisci."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 7], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 3]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["content", "Numquam sit rerum maxime et. Eos sed minus dolores dicta reiciendis sit. Cum id et adipisci facilis neque eum. Et nisi accusantium consequatur aut facere."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 8], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 2]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "Sed consectetur numquam et nemo officiis illum iure. Cum maxime quidem. Doloribus placeat nulla culpa aut illum dicta. Perferendis natus et non asperiores aspernatur totam."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 8], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 1]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["content", "Sed ratione autem non ut dolore suscipit quam. Minima similique provident doloribus fuga deleniti dolores voluptatem. Sunt corrupti omnis laudantium ut deserunt quis est. Voluptatem voluptas voluptates minima odit culpa sit."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 6], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 4]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "Assumenda qui animi sapiente. Nobis voluptatem corporis sit magni laboriosam. Hic atque culpa nam id qui eaque. Maxime quod voluptate amet officiis. Laborum voluptas sed beatae eum excepturi. Omnis cupiditate debitis omnis necessitatibus nihil."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 8], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 1]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["content", "Rerum iure et eos quisquam odit iusto eos. Sapiente distinctio asperiores aut ratione. Ipsa minima assumenda est totam. Id voluptas in aut delectus et ut. Voluptate sequi omnis vel laboriosam veniam. Fugit id aut tenetur dolor et illo rem."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 6], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 1]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "Ducimus velit rerum aliquam. Ut saepe distinctio in necessitatibus dolores. Quam aut perspiciatis laudantium culpa. Est recusandae vero corrupti sapiente. Aspernatur libero molestias expedita assumenda."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 5], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 3]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["content", "Enim odio dolorem et exercitationem ipsam voluptas minima. Officiis facere optio quibusdam eum fugit qui. Id deserunt similique ea et. Exercitationem voluptatem voluptate. Nisi quae vitae ratione sapiente totam."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 2], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 3]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "Optio repellendus nobis quis eum. Ad rerum omnis qui. Similique excepturi voluptate esse omnis molestiae. In quos asperiores et sunt. Nesciunt tenetur et eos nihil accusamus."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 1], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 4]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["content", "Et deleniti odio explicabo tempora voluptatem soluta dolores. Molestiae reprehenderit in. Rem vel temporibus. Cum ut provident qui tempora. Totam in nulla harum pariatur."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 3], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 3]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "Officia et accusamus aut animi exercitationem ab sint. Voluptatem aspernatur fugiat omnis eveniet ut non blanditiis. Illum molestias debitis quia sunt. Quos et illum voluptatibus. Facilis qui sed dolorem mollitia quo. Placeat ullam sapiente eos eveniet repudiandae aut voluptatem."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 8], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 4]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["content", "Hic qui et repellendus soluta cupiditate. Voluptas eligendi nulla est. Similique quis consequuntur doloremque est. Eos a et quas quasi. Qui voluptatem nesciunt dolor nam omnis."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 5], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 4]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "Ipsam ut accusantium aut. Repudiandae aut nulla odio ut. Totam facilis repudiandae nobis. Praesentium qui doloribus enim minima. Reprehenderit maxime consequuntur corrupti praesentium eos."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 6], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 3]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["content", "Modi id facilis aut rerum distinctio. Earum placeat facilis eos quibusdam distinctio fugiat. Qui dolor voluptatem a in placeat dignissimos. Et cumque fugit consectetur voluptatem aut dolor. Et similique voluptas rerum sed non soluta. Magnam sunt maiores minima ipsa."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 5], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 3]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "Et qui dolorem. Autem voluptatibus est ut et qui ab architecto. Eaque excepturi assumenda totam. Et nostrum placeat consectetur odit voluptas dolores. Cum vero ut dignissimos eum sunt."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 1], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 3]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["content", "Nesciunt recusandae blanditiis. Quidem sit libero omnis velit. Id quos est laudantium ad. Distinctio ut possimus sunt eaque earum id qui. Eligendi suscipit dolorum rerum dolorem est molestias. Fuga enim et dolor est dolores vero repellendus."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 1], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 3]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "Perspiciatis iusto culpa voluptates saepe. Reprehenderit illum quo perspiciatis ea repellat et. Sapiente et non tempora quae possimus. Impedit ab dolorem assumenda ipsa adipisci. Consequuntur magnam consequatur cumque natus eligendi exercitationem."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 1], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 2]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["content", "Aut ab non sint. Doloribus qui molestiae. Dolor consequatur asperiores non. Dolorum animi id adipisci tenetur. Ea molestiae vitae est nihil."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 1], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 4]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "Ipsam aspernatur iusto. Illo et dolor qui. Autem hic nostrum unde doloremque. Facilis culpa autem aut voluptatem nobis. Veniam et ut."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 1], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 4]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["content", "Aperiam consequuntur cumque eius ut ipsum. Enim quasi enim et. Rerum sequi libero atque aliquid qui. Voluptates aut non. Eos occaecati quia tempore illo et est quibusdam. Nostrum eius maiores voluptas odio accusamus quod eos."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 2], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 4]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "Eveniet cupiditate tempora sunt suscipit. Id tempora esse vel ducimus expedita quibusdam nostrum. Exercitationem ad aperiam quo velit voluptatem. Natus ad quasi porro et at. Aut dolores voluptatum iusto labore."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 3], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 2]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["content", "Sequi explicabo et corrupti temporibus vero porro nulla. Quibusdam quisquam ut eligendi debitis mollitia aut aliquid. Dolore dolores quia dolor quae quo reiciendis. Id qui iste corporis amet rerum fugiat velit. Sequi deserunt et ea. Sint et est voluptatem dolores et voluptatem."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 7], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 1]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.0ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "Fugit exercitationem corporis omnis distinctio dolore dolor perspiciatis. Et quae minus quos illum fuga. Id et quisquam delectus dolorem aut odio aut. Quod minus fuga mollitia quidem sunt. Voluptas ratione nam cum ipsa libero. Mollitia fugiat consequatur in quo et neque."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 8], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 3]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["content", "Et laboriosam optio. Quos enim odio aut qui consectetur in. Voluptatem quibusdam officia id. Excepturi quia animi ipsa. Odit et perferendis provident sed molestiae et."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 7], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 3]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "Aperiam temporibus quia dolor doloribus modi optio qui. Similique pariatur possimus quo sed et. Et sint quo. Eius corrupti dolorum consequuntur tempore atque. Est et velit aliquam id cupiditate. Est ut est aliquam."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 7], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 3]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["content", "Occaecati totam qui blanditiis quibusdam veritatis doloribus. Non doloremque quo sapiente ipsa. Nam ipsum voluptatem necessitatibus asperiores. Possimus amet distinctio."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 5], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 2]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "Aut ducimus ut quisquam molestias repellendus nobis. Laudantium placeat repellat ut non. Consequatur id est. Suscipit commodi atque qui doloribus aut impedit velit."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 2], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 1]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["content", "Ratione ut ipsum laborum adipisci fuga ea non. Voluptatem perferendis unde eos deserunt non voluptas. Eum est et consectetur assumenda. Voluptates doloremque tempore quos repudiandae quis."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 2], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 2]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["content", "Qui voluptatem et. Sed modi natus quas qui. Tenetur ut sapiente quae itaque modi dolore. Dolor earum doloribus accusantium."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 4], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 4]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "comments" ("content", "created_at", "post_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["content", "Quibusdam laboriosam omnis eum nam porro ducimus est. Facere nostrum incidunt neque quo consequatur aspernatur quo. Sunt possimus totam corrupti qui. Id vitae voluptatem fugiat. Et eius ab amet non."], ["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["post_id", 1], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 4]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.1ms)[0m  [1mINSERT INTO "friendships" ("created_at", "friend_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["friend_id", 2], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 1]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "friendships" ("created_at", "friend_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["friend_id", 3], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 1]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (5.4ms)[0m  [1mINSERT INTO "friendships" ("created_at", "friend_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["friend_id", 4], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 1]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "friendships" ("created_at", "friend_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["friend_id", 3], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 2]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "friendships" ("created_at", "friend_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["friend_id", 4], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 2]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "friendships" ("created_at", "friend_id", "updated_at", "user_id") VALUES ($1, $2, $3, $4) RETURNING "id"  [["created_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["friend_id", 4], ["updated_at", Thu, 19 Sep 2013 01:57:36 UTC +00:00], ["user_id", 3]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[36mUser Load (0.8ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (0.6ms)[0m  SELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (3.7ms)[0m  SELECT "users".* FROM "users" INNER JOIN "friendships" ON "users"."id" = "friendships"."friend_id" WHERE "friendships"."user_id" = $1  [["user_id", 1]]
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1[0m
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" INNER JOIN "friendships" ON "users"."id" = "friendships"."friend_id" WHERE "friendships"."user_id" = $1[0m  [["user_id", 4]]
+  [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1
+  [1m[36mUser Load (0.7ms)[0m  [1mSELECT "users".* FROM "users" INNER JOIN "friendships" ON "users"."id" = "friendships"."user_id" WHERE "friendships"."friend_id" = $1[0m  [["friend_id", 4]]
