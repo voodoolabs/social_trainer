@@ -1,0 +1,17 @@
+%section.home
+  %h1= "Welcome"  
+  = form_for :user do |f| 
+    %p 
+      = f.label :email
+      = f.text_field :email
+
+    %p 
+      = f.label :password
+      = f.password_field :password
+
+    %p
+      = f.submit
+
+    
+
+
