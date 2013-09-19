@@ -1,6 +1,7 @@
 %section.home
-  %h1= "Welcome"  
-  = form_for :user do |f| 
+  %h1= "Welcome to Social Trainer"
+
+  = form_for :user, url: sessions_path do |f| 
     %p 
       = f.label :email
       = f.text_field :email
@@ -12,6 +13,6 @@
     %p
       = f.submit
 
-    
+
 
 

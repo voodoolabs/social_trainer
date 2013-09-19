@@ -9,15 +9,15 @@ class SessionsController < ApplicationController
     @user = user.authenticate(params[:user][:password])
     if @user
       session[:user_id] = @user.id
-      redirect_to user_path(@user.id)
+      redirect_to user_posts_path(@user.id)
     else
-      redirect_to posts_path
+      redirect_to root
     end
   end
 
   def destroy
     session.clear
-    redirect_to posts_path
+    redirect_to root
   end
 
 end
