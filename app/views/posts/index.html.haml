@@ -1,8 +1,0 @@
-%section.feed 
-  %ul
-  - @posts.each do |post| 
-    %h4= post.title
-    %h5= User.find_by(id: post.user_id).name
-    %link_to 
-    %li
-      %p=post.text_field

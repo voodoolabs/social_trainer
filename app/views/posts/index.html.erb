@@ -1,6 +1,6 @@
 <section class="feed">
   <ul>
-  <% @posts.each do |post| %> 
+  <% @posts.each do |post| %>
     <li>
       <h5><%= the_user = User.find_by(id: post.user_id).name %></h5>
       <h4><%= post.title %></h4>
@@ -10,3 +10,4 @@
   <% end %>
   </ul>
 </section>
+<!-- javascript  text_field-->
