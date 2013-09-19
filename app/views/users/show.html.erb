@@ -1,17 +1,36 @@
 <section class="profile">
   <img src="http://upload.wikimedia.org/wikipedia/en/9/99/Itispat.jpg">
-  <h2>Pat Bob</h2>
-  <p>Member Since: Jun, 1908</p>
-  <span>pat@pat.com</span>
+  <h2><%= @user.name %></h2>
+  <p>Member Since: <%= @user.created_at %></p>
+  <span><%= @user.email %></span>
   <a href="">facebook</a>
   <a href="">twitter</a>
   <a href="">instagram</a>
+
   <div id="status_bar">
     <ul>
       <li class="status">Status: BANNED</li>
       <li class="karma">Karma: -4</li>
-      <li class="about">About: Pat is a man?</li>
+      <% if @user.id == current_user.id %>
+        <li class="about"><%= render partial: "edit_about_form", layout: false %></li>
+      <% else %>
+        <li><%= @user.about %></li>
+      <% end %>
     </ul>
   </div>
+
+  <div id="new_post_form">
+    <%= render partial: "new_post_form", layout: false %>
+  </div>
+
+  <ul>
+    <% @posts.each do |post| %>
+      <li>
+        <h4><%= post.title %></h4>
+        <span><%= post.created_at %></span>
+        <p><%= post.text_field%></p>
+      </li>
+    <% end %>
+  </ul>
 
 </section>
