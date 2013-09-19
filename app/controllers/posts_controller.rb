@@ -9,12 +9,12 @@ class PostsController < ApplicationController
   end
 
   def new
-    
+
   end
 
   def create
     new_post = Post.create(title: params[:post][:title], text_field: params[:post][:title], user_id: current_user.id)
-    redirect_to user_posts_path 
+    redirect_to user_posts_path
   end
 
 end
