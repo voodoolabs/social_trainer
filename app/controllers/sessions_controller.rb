@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       session[:user_id] = @user.id
       redirect_to user_posts_path(@user.id)
     else
-      redirect_to root
+      redirect_to users_path
     end
   end
 
