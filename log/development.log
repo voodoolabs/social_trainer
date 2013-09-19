@@ -655,3 +655,45 @@ Migrating to CreateFriendships (20130918230004)
   [1m[36mUser Load (0.4ms)[0m  [1mSELECT "users".* FROM "users" INNER JOIN "friendships" ON "users"."id" = "friendships"."friend_id" WHERE "friendships"."user_id" = $1[0m  [["user_id", 4]]
   [1m[35mUser Load (0.4ms)[0m  SELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT 1
   [1m[36mUser Load (0.7ms)[0m  [1mSELECT "users".* FROM "users" INNER JOIN "friendships" ON "users"."id" = "friendships"."user_id" WHERE "friendships"."friend_id" = $1[0m  [["friend_id", 4]]
+  [1m[36m (14.7ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+  [1m[35m (1.5ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20130918225615)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (3.4ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "name" character varying(255) NOT NULL, "about" text, "password_digest" character varying(255) NOT NULL, "password_confirmation" character varying(255), "email" character varying(255) NOT NULL, "status" boolean DEFAULT 'f', "friend_id" integer, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.7ms)[0m  CREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_users_on_id" ON "users" ("id")[0m
+  [1m[35mSQL (0.8ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225615"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreatePosts (20130918225745)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.8ms)[0m  [1mCREATE TABLE "posts" ("id" serial primary key, "user_id" integer NOT NULL, "title" character varying(255) NOT NULL, "text_field" text NOT NULL, "post_type" character varying(255) DEFAULT 'standard', "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.5ms)[0m  CREATE INDEX "index_posts_on_id" ON "posts" ("id")
+  [1m[36m (0.5ms)[0m  [1mCREATE INDEX "index_posts_on_user_id" ON "posts" ("user_id")[0m
+  [1m[35m (0.5ms)[0m  CREATE INDEX "index_posts_on_post_type" ON "posts" ("post_type")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918225745"]]
+  [1m[35m (0.7ms)[0m  COMMIT
+Migrating to CreateComments (20130918225819)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.8ms)[0m  CREATE TABLE "comments" ("id" serial primary key, "post_id" integer NOT NULL, "user_id" integer NOT NULL, "content" text NOT NULL, "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_comments_on_id" ON "comments" ("id")[0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_comments_on_user_id" ON "comments" ("user_id")
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_comments_on_post_id" ON "comments" ("post_id")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20130918225819"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateLikes (20130918225853)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (1.8ms)[0m  [1mCREATE TABLE "likes" ("id" serial primary key, "post_id" integer, "liker_id" integer NOT NULL, "comment_id" integer, "value" boolean, "created_at" timestamp, "updated_at" timestamp) [0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_likes_on_id" ON "likes" ("id")
+  [1m[36m (0.6ms)[0m  [1mCREATE INDEX "index_likes_on_value" ON "likes" ("value")[0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_likes_on_post_id" ON "likes" ("post_id")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918225853"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to CreateFriendships (20130918230004)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.9ms)[0m  CREATE TABLE "friendships" ("id" serial primary key, "user_id" integer NOT NULL, "friend_id" integer NOT NULL, "status" character varying(255) DEFAULT 'pending', "created_at" timestamp, "updated_at" timestamp) 
+  [1m[36m (0.7ms)[0m  [1mCREATE INDEX "index_friendships_on_user_id" ON "friendships" ("user_id")[0m
+  [1m[35m (0.6ms)[0m  CREATE INDEX "index_friendships_on_friend_id" ON "friendships" ("friend_id")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20130918230004"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m

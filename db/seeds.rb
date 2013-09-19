@@ -7,10 +7,10 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'faker'
 
-j = User.create!(name: "John", password: "j", password_confirmation: "j", email: "j@j.com", friend_id: 1)
-n = User.create!(name: "Nick", password: "n", password_confirmation: "n", email: "n@n.com", friend_id: 2)
-c = User.create!(name: "Cory", password: "c", password_confirmation: "c", email: "c@c.com", friend_id: 3)
-w = User.create!(name: "Wendy", password: "w", password_confirmation: "w", email: "w@w.com", friend_id: 4)
+j = User.create!(name: "John", about: "This is a description of John", password: "j", password_confirmation: "j", email: "j@j.com", friend_id: 1)
+n = User.create!(name: "Nick", about: "This is a description of Nick", password: "n", password_confirmation: "n", email: "n@n.com", friend_id: 2)
+c = User.create!(name: "Cory", about: "This is a description of Cory", password: "c", password_confirmation: "c", email: "c@c.com", friend_id: 3)
+w = User.create!(name: "Wendy", about: "This is a description of Wendy", password: "w", password_confirmation: "w", email: "w@w.com", friend_id: 4)
 
 10.times do
 	Post.create!(title: Faker::Lorem.sentence(3), text_field: Faker::Lorem.paragraph(3), user_id: rand(1..4))
