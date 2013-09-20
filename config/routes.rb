@@ -14,6 +14,7 @@ SocialTrainer::Application.routes.draw do
   resources :friend_requests, only: [:create, :destroy]
   resources :friendships, only: [:create, :destroy]
 
+  post '/search' => 'search#index', as: "search"
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
