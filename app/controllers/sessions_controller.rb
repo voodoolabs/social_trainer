@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
         session[:user_id] = @user.id
         redirect_to user_posts_path(@user.id)
       else
-        redirect_to users_path
+        redirect_to root_path
       end
     else
       @user = User.create!(name: params[:user][:name], email: params[:user][:email], password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
@@ -23,6 +23,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session.clear
-    redirect_to '/'
+    redirect_to root_path
   end
 end

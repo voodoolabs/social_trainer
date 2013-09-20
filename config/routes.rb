@@ -2,7 +2,7 @@ SocialTrainer::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   # You can have the root of your site routed with "root"
-  root :to => 'users#index'
+  root :to => 'welcome#index'
 
   resources :sessions, only: [:create, :new, :destroy]
   resources :users do
@@ -45,7 +45,7 @@ SocialTrainer::Application.routes.draw do
   #       get 'recent', on: :collection
   #     end
   #   end
-  
+
   # Example resource route with concerns:
   #   concern :toggleable do
   #     post 'toggle'

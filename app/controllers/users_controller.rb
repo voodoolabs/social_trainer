@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   def index
+    @users = User.all
+    # @search_users = User.search(params[:search]).page(:page => params[:page])
   end
 
   def show
