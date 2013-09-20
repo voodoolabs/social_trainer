@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 20130920200327) do
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "friend_requests", force: true do |t|
-    t.string   "url",        null: false
     t.integer  "user_id",    null: false
     t.integer  "friend_id",  null: false
     t.datetime "created_at"

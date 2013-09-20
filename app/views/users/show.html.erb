@@ -19,6 +19,12 @@
     </ul>
   </div>
 
+  <div id="friend_requests">
+    <% @user.requested_friendships.each do |request| %>
+      <p><%= link_to "#{request.user.name}", request.user %> <%= "wants to add you as a friend" %></p>
+    <% end %>
+  </div>
+
   <div id="new_post_form">
     <%= render partial: "/posts/new", layout: false %>
   </div>
