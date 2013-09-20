@@ -15,12 +15,12 @@
         <li class="about"><%= render partial: "edit_about_form", layout: false %></li>
       <% else %>
         <li><%= @user.about %></li>
-      <% end %>
+      5<% end %>
     </ul>
   </div>
 
   <div id="new_post_form">
-    <%= render partial: "new_post_form", layout: false %>
+    <%= render partial: "/posts/new", layout: false %>
   </div>
 
   <ul>
