@@ -12,6 +12,7 @@ SocialTrainer::Application.routes.draw do
   end
 
   resources :friend_requests, only: [:create, :destroy]
+  resources :friendships, only: [:create, :destroy]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
