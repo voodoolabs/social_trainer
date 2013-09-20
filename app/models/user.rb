@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
 	has_many :inverse_friendships, class_name: "Friendship", foreign_key: :friend_id
 	has_many :inverse_friends, through: :inverse_friendships, source: :user
 
+	has_many :friend_requests
+	has_many :requested_friendships, class_name: "FriendRequest", foreign_key: :friend_id
+
 	# has_many :friendships, foreign_key: :requester_id
 	# has_many :friends_users, through: :friends, source:
 
@@ -18,4 +21,12 @@ class User < ActiveRecord::Base
 
 	#bcrypt stuff
 	has_secure_password
+
+	def self.search(search)
+	  if search
+	    where 'name LIKE ?', "%#{search}%"
+	  else
+	    all
+	  end
+	end
 end
