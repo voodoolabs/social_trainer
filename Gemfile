@@ -31,6 +31,12 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 gem 'faker'
 
+group :development, :test do
+  gem 'rspec-rails', '~> 2.4'
+  gem 'capybara'
+  gem 'launchy'
+end
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
