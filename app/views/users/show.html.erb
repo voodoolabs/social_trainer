@@ -9,8 +9,8 @@
 
   <div id="status_bar">
     <ul>
-      <li class="status">Status: BANNED</li>
-      <li class="karma">Karma: -4</li>
+      <h2><li class="status">Status: BANNED</li><h2>
+      <h2><li class="karma">Karma: -4</li></h2>
       <% if @user.id == current_user.id %>
         <li class="about"><%= render partial: "edit_about_form", layout: false %></li>
       <% else %>

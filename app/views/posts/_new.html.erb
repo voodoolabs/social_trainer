@@ -2,12 +2,10 @@
   <h3>Create a Post</h3>
     <%= form_for :post, url: user_posts_path(current_user) do |f| %>
     <p>
-      <%= f.label :title %>
-      <%= f.text_field :title %>
+      <%= f.text_field :title, :placeholder => "Title" %>
     </p>
     <p>
-      <%= f.label :text_field %>
-      <%= f.text_field :text_field %>
+      <%= f.text_field :text_field, :placeholder => "Content" %>
     </p>
     <p>
       <%= f.submit "Post" %>
