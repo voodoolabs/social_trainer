@@ -1,9 +1,10 @@
-/*Feed Page*/
+/*Basic Layout*/
 
 html, body {
   margin: 0px;
   padding: 0px;
   width: 100%;
+  position: absolute;
 }
 
 nav {
@@ -57,7 +58,8 @@ section.profile {
     margin-left: 500px;
     margin-right: 500px;
     padding: 10px;
-    border: 2px solid black;
+    border: 1px solid black;
+    background-color: #E9EDF1;
 }
 
 /*Home Page */
@@ -75,8 +77,21 @@ section.home {
 }
 
 .profile img {
-  border: 2px solid #679ED2;
+  border: 1px solid #A3ACB4;
   padding: 1px;
+}
+
+
+
+
+#status_bar {
+  position: absolute;
+  top: 100px;
+  right: 920px;
+}
+
+.profile > ul {
+  padding: 0;
 }
 
 .profile li {
@@ -85,7 +100,49 @@ section.home {
 
 /*All Friends Page*/
 
-.all_friends {
-  margin-top: 75px;
-  margin-left: 75px;
+.friend_list {
+  margin-top: 70px;
+  margin-left: 600px;
+  margin-right: 600px;
+  padding: 10px;
+  border: 1px solid black;
+  background-color: #E9EDF1;
+}
+
+.search_bar {
+  margin-top: 70px;
+  text-align: center;
+}
+
+/*Post Feed*/
+
+.feed {
+  border: 1px solid #5E5E5E;
+  text-align: left;
+  margin-left: 600px;
+  margin-right: 600px;
+  /*padding-right: 600px;*/
+  background-color: #E9EDF1;
+  padding-left: 10px;
+}
+
+.feed > ul {
+  padding: 0;
+}
+
+.feed > ul ul {
+  margin-left: -25px;
+  border-bottom: 1px solid gray;
+}
+
+.feed li {
+  list-style: none;
+}
+
+.new_comment {
+  padding-left: 0px;
+}
+
+.new_post {
+
 }

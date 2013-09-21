@@ -11,9 +11,8 @@
         <h6><%= post.created_at %></h6>
       </li>
       <ul>
-        <hr>
         <%= render partial: 'comments/new', locals: {post: post} %>
-        <hr>
+        <!-- <hr> -->
         <% if post.comments.first %>
           <% post.comments.each do |com|%>
           <h5><%= link_to image_tag(User.find_by(id: com.user_id).photo_url, {height:20}) + User.find_by(id: com.user_id).name, url_for(user_path(com.user_id)) %></h5>
