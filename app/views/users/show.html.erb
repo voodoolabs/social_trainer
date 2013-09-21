@@ -19,6 +19,25 @@
     </ul>
   </div>
 
+  <div id="friend_requests">
+    <% @user.requested_friendships.each do |request| %>
+      <p><%= link_to "#{request.user.name}", request.user %> <%= "wants to add you as a friend" %></p>
+
+      <%= form_for Friendship.new do |f|%>
+          <%= f.hidden_field :user_id, :value => request.user_id %>
+          <%= f.hidden_field :friend_id, :value => request.friend_id %>
+          <%= f.submit "Accept" %>
+      <% end %>
+
+      <%= form_for request do |f|%>
+          <%= f.hidden_field :user_id, :value => request.user_id %>
+          <%= f.hidden_field :friend_id, :value => request.friend_id %>
+          <%= f.submit "Deny" %>
+      <% end %>
+
+    <% end %>
+  </div>
+
   <div id="new_post_form">
     <%= render partial: "/posts/new", layout: false %>
   </div>

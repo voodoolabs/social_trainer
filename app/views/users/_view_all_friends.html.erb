@@ -1,7 +1,11 @@
 <% if current_user %>
+
   <% @users.each do |user| %>
   <h1><%= link_to image_tag(user.photo_url, {height:45}) + user.name, url_for(user_path(user.id)) %></h1>
-  <%= link_to "Add as friend", user_path(user.id) %>
-    <% end %>
+      <%= form_for FriendRequest.new do |f|%>
+        <%= f.hidden_field :user_id, :value => current_user.id %>
+        <%= f.hidden_field :friend_id, :value => user.id %>
+        <%= f.submit "Add Friend" %>
+      <% end %>
   <% end %>
-
+<% end %>
