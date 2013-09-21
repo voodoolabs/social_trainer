@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20130920200327) do
     t.boolean  "status",                default: false
     t.integer  "friend_id"
     t.string   "photo_url"
+    t.datetime "banned_until"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
