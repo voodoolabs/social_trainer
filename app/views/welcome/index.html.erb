@@ -2,15 +2,13 @@
   <% if current_user %>
     <% redirect_to user_posts_path %>
   <% else %>
-  <h1>Welcome to Social Trainer</h1>
+  <h1>Welcome to Social Trainer!</h1><br>
     <%= form_for :user, html:{class: "loginform"}, url: sessions_path do |f| %>
     <p>
-      <%= f.label :email %>
-      <%= f.text_field :email %>
+      <%= f.text_field :email, :placeholder => "Email" %>
     </p>
     <p>
-      <%= f.label :password %>
-      <%= f.password_field :password %>
+      <%= f.password_field :password, :placeholder => "Password" %>
     </p>
     <p>
       <%= f.submit "Login" %>

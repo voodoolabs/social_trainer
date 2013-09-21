@@ -29,4 +29,21 @@ class User < ActiveRecord::Base
 	    all
 	  end
 	end
+
+	# def banned?
+	# 	if current_user.banned_timestamp > Time.now
+	# 		true
+	# 	else
+	# 		current_user.update(banned_timestamp: nil)
+	# 		false
+	# 	end
+	# end
+
+	# def time_ban
+	# 	if current_user.score == -5
+	# 		current_user.update(banned_timestamps: = Time.now + 3*60*60)
+	# 	else
+
+	# 	end
+	# end
 end
