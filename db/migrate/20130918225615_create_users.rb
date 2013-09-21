@@ -9,7 +9,7 @@ class CreateUsers < ActiveRecord::Migration
       t.boolean :status, default: false
       t.integer :friend_id
       t.string :photo_url
-      t.datetime :banned_until 
+      t.datetime :banned_until
 
       t.timestamps
     end
