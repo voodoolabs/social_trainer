@@ -11,7 +11,6 @@
         <h6><%= post.created_at %></h6>
       </li>
       <ul>
-        <!-- <hr> -->
         <%= render partial: 'comments/new', locals: {post: post} %>
         <!-- <hr> -->
         <% if post.comments.first %>

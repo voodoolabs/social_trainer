@@ -15,7 +15,7 @@
         <li class="about"><%= render partial: "edit_about_form", layout: false %></li>
       <% else %>
         <li><%= @user.about %></li>
-      5<% end %>
+      <% end %>
     </ul>
   </div>
 
@@ -49,6 +49,17 @@
         <span><%= post.created_at %></span>
         <p><%= post.text_field%></p>
       </li>
+      <%= render partial: 'comments/new', locals: {post: post} %>
+        <!-- <hr> -->
+        <% if post.comments.first %>
+          <% post.comments.each do |com|%>
+          <h5><%= link_to image_tag(User.find_by(id: com.user_id).photo_url, {height:20}) + User.find_by(id: com.user_id).name, url_for(user_path(com.user_id)) %></h5>
+            <%= com.content %>
+          <h6><%= com.created_at %></h6>
+        </li>
+        <% end %>
+      <% end %>
+      <hr>
     <% end %>
   </ul>
 

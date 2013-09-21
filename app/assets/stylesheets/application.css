@@ -4,6 +4,7 @@ html, body {
   margin: 0px;
   padding: 0px;
   width: 100%;
+  position: absolute;
 }
 
 nav {
@@ -80,16 +81,18 @@ section.home {
   padding: 1px;
 }
 
-.profile h2 {
-  float: right;
-  padding-right: 350px;
+
+
+
+#status_bar {
+  position: absolute;
+  top: 100px;
+  right: 920px;
 }
 
-/*#status_bar {
-  float: left;
-  padding-left: 1px;
-  padding-right: 100px;
-}*/
+.profile > ul {
+  padding: 0;
+}
 
 .profile li {
   list-style-type: none;
@@ -98,12 +101,17 @@ section.home {
 /*All Friends Page*/
 
 .friend_list {
-  margin-top: 75px;
+  margin-top: 70px;
   margin-left: 600px;
   margin-right: 600px;
   padding: 10px;
   border: 1px solid black;
   background-color: #E9EDF1;
+}
+
+.search_bar {
+  margin-top: 70px;
+  text-align: center;
 }
 
 /*Post Feed*/
@@ -124,6 +132,7 @@ section.home {
 
 .feed > ul ul {
   margin-left: -25px;
+  border-bottom: 1px solid gray;
 }
 
 .feed li {
