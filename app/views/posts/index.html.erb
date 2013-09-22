@@ -9,10 +9,18 @@
       <li>
         <p class="posts"><%= post.text_field%></p>
         <h6><%= post.created_at %></h6>
+        <a href="/users/<%=post.user_id%>/posts/<%= post.id %>/likes" class="vote" data-vote="true" data-post-id="<%= post.id %>">
+          UpVote
+        </a>
+        <a href="/users/<%=post.user_id%>/posts/<%= post.id %>/likes" class="vote" data-vote="false" data-post-id="<%= post.id %>">
+          DownVote
+        </a>
+        <div class="score"><%= post.likes.count %></div>
       </li>
       <ul>
+        <hr>
         <%= render partial: 'comments/new', locals: {post: post} %>
-        <!-- <hr> -->
+        <hr>
         <% if post.comments.first %>
           <% post.comments.each do |com|%>
           <h5><%= link_to image_tag(User.find_by(id: com.user_id).photo_url, {height:20}) + User.find_by(id: com.user_id).name, url_for(user_path(com.user_id)) %></h5>
