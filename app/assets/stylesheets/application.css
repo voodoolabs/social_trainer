@@ -32,7 +32,7 @@ nav >ul > li > a{
 }
 nav > ul > li{
   display: inline;
-  background:rgba(14,33,102,1);
+  background:rgba(40,44,84,1);
   border: none;
   padding: 10px 50px;
   box-shadow: inset 0px 0px 5px rgba(32,32,32,0.8);
@@ -52,7 +52,7 @@ nav > h4{
   left:5px;
   top:5px;
   text-align: left;
-  background:rgba(14,33,102,1);
+  background:rgba(40,44,84,1);
   border: none;
   padding: 0 80px 0 0px;
   margin:0;
@@ -114,6 +114,7 @@ section.home > h2{
 div.new_post > form{
   width
 }
+div.new_comment > form > p > textarea,
 div.new_post > form > p > textarea{
   border: none;
   width:100%;
@@ -126,6 +127,7 @@ div.new_post > form > p > input{
 div.new_post > form > p > input{
   display: inline; 
 }
+div.new_comment > form > p > input[type="text"],
 div.new_post > form > p > input[type="text"]{
   height:40px;
   width: 100%;
@@ -133,6 +135,11 @@ div.new_post > form > p > input[type="text"]{
   border: none;
   padding: 8px 10px;
   box-shadow: inset 0px 0px 5px rgba(32,32,32,0.8);
+}
+h4 a,h5 a,h6 a,h3 a,h2 a,h1 a,
+h4,h5,h6,h3,h2,h1{
+  font-weight: 100;
+  color:white;
 }
 
 section.home > form > p > input[type="text"],
@@ -144,9 +151,21 @@ section.home > form > p > input[type="password"]{
   padding: 8px 10px;
   box-shadow: inset 0px 0px 5px rgba(32,32,32,0.8);
 }
-div.new_post > form > p > input[type="submit"] ,
+div.new_comment > form > p > input[type="submit"],
+div.new_post > form > p > input[type="submit"] {
+  background: rgba(44,40,54,1);
+  width:195px;
+  border:none;
+  padding: 5px 10px;
+  color:rgba(14,33,102,0.8);
+  color:white;
+  font-weight: 300;
+}
+section.home > form{
+  display: inline;
+}
 section.home > form > input[type="submit"],
-section.home > form > button{
+section.home > button{
   box-shadow: -1px 2px 1px rgba(232,232,232,1);
   width:195px;
   padding: 5px 10px;
@@ -156,7 +175,9 @@ section.home > form > button{
   margin:0 5px;
   background:rgba(255,255,255,1);
 }
-
+section.home > button{
+  display: inline;
+}
 section.feed{
   background:rgba(255,255,255,0.8);
   padding: 40px;
@@ -171,6 +192,27 @@ section.feed > ul{
 section.feed > ul > li {
   background:rgba(14,33,102,0.9);
   padding:20px;
+  color:white;
+  font-weight: 200;
+}
+section.feed > ul > ul > li > h5 > a > img,
+section.feed > ul > li > h3 > a > img{
+  margin-right: 20px;
+  background:rgba(40,44,84,0.8);
+}
+
+section.feed > ul > ul > li > h5 > a,
+section.feed > ul > li > h3 > a {
+ background:rgba(240,244,244,0.8);
+ padding: 5px 100px 5px 10px ;
+ font-weight: 400;
+ color:  rgba(40,44,84,1);
+}
+
+section.feed > ul > ul > li{
+  list-style:none;
+  background: rgba(40,44,84,0.9);
+  padding:10px 40px;
   color:white;
   font-weight: 200;
 }

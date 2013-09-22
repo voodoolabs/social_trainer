@@ -3,10 +3,11 @@
   <ul>
   <% @posts.each do |post| %>
     <li>
-      <h3><%= link_to image_tag(User.find_by(id: post.user_id).photo_url, {height:30}) +  User.find_by(id: post.user_id).name, url_for(user_path(post.user_id))  %></h3>
-      <h4><%= post.title %></h4>
+      <h3><%= link_to image_tag(User.find_by(id: post.user_id).photo_url, {height:25}) +  User.find_by(id: post.user_id).name, url_for(user_path(post.user_id))  %></h3>
       <li>
+        <h4><%= post.title %></h4>
         <p class="posts"><%= post.text_field%></p>
+        <hr>
         <h6><%= post.created_at %></h6>
         <a href="/users/<%=post.user_id%>/posts/<%= post.id %>/likes" class="vote" data-vote="true" data-post-id="<%= post.id %>">
           UpVote
@@ -20,14 +21,16 @@
         <hr>
         <% if post.comments.first %>
           <% post.comments.each do |com|%>
+          <li>
           <h5><%= link_to image_tag(User.find_by(id: com.user_id).photo_url, {height:20}) + User.find_by(id: com.user_id).name, url_for(user_path(com.user_id)) %></h5>
+            <hr>
             <%= com.content %>
+            <hr>
           <h6><%= com.created_at %></h6>
         </li>
         <hr>
-        <%= render partial: 'comments/new', locals: {post: post} %>
-        <hr>
           <% end %>
+          <%= render partial: 'comments/new', locals: {post: post} %>
         <% end %>
       </ul>
       <hr>
