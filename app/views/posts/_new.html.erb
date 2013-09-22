@@ -1,8 +1,7 @@
-<div class="new_post">
-  <h3>Create a Post</h3>
-    <%= form_for :post, url: user_posts_path(current_user) do |f| %>
+<div class="new_post"> 
+   <%= form_for :post, url: user_posts_path(current_user) do |f| %>
     <p>
-      <%= f.text_field :title, :placeholder => "Title" %>
+      <%= f.text_field :title, :placeholder => "Create a Post, Bitch....          (The Title Goes Here)" %>
     </p>
     <p>
       <%= f.text_area :text_field, size: "70x2", :placeholder => "Content" %>

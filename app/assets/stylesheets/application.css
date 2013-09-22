@@ -4,51 +4,73 @@ html, body {
   margin: 0px;
   padding: 0px;
   width: 100%;
+  background: -moz-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+background: -webkit-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Opera 12+ */
+background: -ms-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* IE10+ */
+background: radial-gradient(ellipse at center,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+.cover { 
+  height: 100%;
+  opacity:0.9;
+  background: url(w.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; padding-top: 100px;
+}
+nav > ul {
   position: absolute;
+  right:10px;
+  top:10px;
 }
-
-nav {
- background-color:#262626;
- width:100%;
- height:50px;
- box-shadow: 0px 1px 10px #5E5E5E;
- position:fixed;
- top:0px;
+nav >ul > li > a{
+  color:white;
 }
+nav > ul > li{
+  display: inline;
+  background:rgba(14,33,102,1);
+  border: none;
+  padding: 10px 50px;
+  box-shadow: inset 0px 0px 5px rgba(32,32,32,0.8);
+} 
 
- nav li {
-  display:inline;
-  float: right;
-  padding-right: 15px;
-  padding-top: 12px;
-  list-style: none;
-}
-
-body {
-  margin-top: 75px;
-}
-
-footer li {
-  list-style: none;
-  float: right;
-  color: white;
-  font-family: Helvetica Neue;
-  padding-top: 2px;
-  padding-right: 10px;
-}
-
-footer {
-  background-color:#262626;
-  width: 100%;
-  height: 25px;
-  box-shadow: 0px 1px 25px #5E5E5E;
+nav{
   position: fixed;
-  bottom: 0px;
+  top: 0;
+  left:0;
+  width: 100%;
+  height: 40px;
+  z-index:999;
+  background: rgba(255,255,255,0.8);
 }
-
-.feed {
-  margin-top: 75px;
-  margin-left: 100px;
+nav > h4{
+  position: absolute;
+  left:5px;
+  top:5px;
+  text-align: left;
+  background:rgba(14,33,102,1);
+  border: none;
+  padding: 0 80px 0 0px;
+  margin:0;
+  color:white;
+}
+nav > h4 > a {
+  color:white;
+  margin: 0 0px;
+}
+nav > h4 > a > img {
+  margin-right: 40px;
+  /*float: left;*/
+}
+nav,
+footer{
+  list-style: none;
+  font-weight: 500;
+  padding: 0; margin: 0;
 }
 
 /*Profile Page*/
@@ -63,86 +85,92 @@ section.profile {
 }
 
 /*Home Page */
-
+.centerwrap{
+  display: table;
+  margin:0 auto;
+}
 section.home {
-  margin-top: 200px;
-  margin-left: 600px;
-  margin-right: 600px;
-  /*border: 1px solid black;*/
   padding: 5px;
   text-align: center;
-  background-color: #679ED2;
-  color: white;
+  /*background:rgba(34,53,132,1);*/
+  width: 800px;
+  height: 400px;
+  margin: 30% auto;
   box-shadow: 1px 1px 5px #5E5E5E;
+  background:rgba(34,53,132,1);
+background: -moz-radial-gradient(center, ellipse cover,  rgba(34,53,132,1) 0%, rgba(34,53,132,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(167,207,223,0.9)), color-stop(100%,rgba(34,53,132,1))); /* Chrome,Safari4+ */
+background: -webkit-radial-gradient(center, ellipse cover,  rgba(167,207,223,0.9) 0%,rgba(34,53,132,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-radial-gradient(center, ellipse cover,  rgba(167,207,223,0.9) 0%,rgba(34,53,132,1) 100%); /* Opera 12+ */
+background: -ms-radial-gradient(center, ellipse cover,  rgba(167,207,223,0.9) 0%,rgba(34,53,132,1) 100%); /* IE10+ */
+background: radial-gradient(ellipse at center,  rgba(167,207,223,0.9) 0%,rgba(34,53,132,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7cfdf', endColorstr='#23538a',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
 }
 
-.profile img {
-  border: 1px solid #A3ACB4;
-  padding: 1px;
+section.home > h2{
+  color: white;
 }
-
-
-
-
-#status_bar {
-  position: absolute;
-  top: 100px;
-  right: 920px;
+div.new_post > form{
+  width
 }
-
-.profile > ul {
-  padding: 0;
+div.new_post > form > p > textarea{
+  border: none;
+  width:100%;
+  height:80px;
 }
-
-.profile li {
-  list-style-type: none;
-}
-
-/*All Friends Page*/
-
-.friend_list {
-  margin-top: 70px;
-  margin-left: 600px;
-  margin-right: 600px;
-  padding: 10px;
-  border: 1px solid black;
-  background-color: #E9EDF1;
-}
-
-.search_bar {
-  margin-top: 70px;
+div.new_post > form > p > input{
   text-align: center;
+  width:100%;
+}
+div.new_post > form > p > input{
+  display: inline; 
+}
+div.new_post > form > p > input[type="text"]{
+  height:40px;
+  width: 100%;
+  background:rgba(14,33,102,1);
+  border: none;
+  padding: 8px 10px;
+  box-shadow: inset 0px 0px 5px rgba(32,32,32,0.8);
 }
 
-/*Post Feed*/
-
-.feed {
-  border: 1px solid #5E5E5E;
-  text-align: left;
-  margin-left: 600px;
-  margin-right: 600px;
-  /*padding-right: 600px;*/
-  background-color: #E9EDF1;
-  padding-left: 10px;
+section.home > form > p > input[type="text"],
+section.home > form > p > input[type="password"]{
+  width:400px;
+  height:40px;
+  background:rgba(14,33,102,1);
+  border: none;
+  padding: 8px 10px;
+  box-shadow: inset 0px 0px 5px rgba(32,32,32,0.8);
+}
+div.new_post > form > p > input[type="submit"] ,
+section.home > form > input[type="submit"],
+section.home > form > button{
+  box-shadow: -1px 2px 1px rgba(232,232,232,1);
+  width:195px;
+  padding: 5px 10px;
+  color:rgba(14,33,102,1);
+  font-weight: 500;
+  border: none;
+  margin:0 5px;
+  background:rgba(255,255,255,1);
 }
 
-.feed > ul {
-  padding: 0;
+section.feed{
+  background:rgba(255,255,255,0.8);
+  padding: 40px;
+  width: 80%;
+  margin:0 auto;
 }
 
-.feed > ul ul {
-  margin-left: -25px;
-  border-bottom: 1px solid gray;
-}
-
-.feed li {
+section.feed > ul{
   list-style: none;
 }
 
-.new_comment {
-  padding-left: 0px;
-}
-
-.new_post {
-
+section.feed > ul > li {
+  background:rgba(14,33,102,0.9);
+  padding:20px;
+  color:white;
+  font-weight: 200;
 }
