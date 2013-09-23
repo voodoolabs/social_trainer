@@ -12,13 +12,9 @@ $(document).ready(function(){
     var post = $(this).data('post-id');
     var vote = $(this).data('vote');
     var data = {post_id: post, value: vote};
-    // debugger
-    
     $.post(url, data, function(response){
-      debugger
-      console.log(response)
-      console.log(response['score'])
-      $('div.score').html("response['score']");
+      console.log(response);
+      $('div.score').html('response["score"]');
     });
   });
 });

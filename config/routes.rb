@@ -7,7 +7,10 @@ SocialTrainer::Application.routes.draw do
   resources :sessions, only: [:create, :new, :destroy]
   resources :users do
     resources :posts do
-      resources :comments
+      resources :likes
+      resources :comments do 
+        resources :likes
+      end
     end
   end
 

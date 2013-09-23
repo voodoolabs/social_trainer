@@ -164,6 +164,7 @@ div.new_post > form > p > input[type="submit"] {
 section.home > form{
   display: inline;
 }
+section.friend_list > form > input[type="submit"],
 section.home > form > input[type="submit"],
 section.home > button{
   box-shadow: -1px 2px 1px rgba(232,232,232,1);
@@ -178,13 +179,37 @@ section.home > button{
 section.home > button{
   display: inline;
 }
+section.friend_list,
+section.profile,
 section.feed{
   background:rgba(255,255,255,0.8);
   padding: 40px;
   width: 80%;
+  min-width:500px;
   margin:0 auto;
+  list-style: none;
 }
 
+section.friend_list h1,
+section.friend_list h2,
+section.friend_list h3,
+section.friend_list h4,
+section.friend_list h5,
+section.friend_list h6,
+section.friend_list a {
+  color:rgba(14,33,102,1);
+}
+
+section.profile h1,
+section.profile h2,
+section.profile h3,
+section.profile h4,
+section.profile h5,
+section.profile h6{
+  color:rgba(14,33,102,1);
+}
+
+section.profile ul,
 section.feed > ul{
   list-style: none;
 }
@@ -216,3 +241,7 @@ section.feed > ul > ul > li{
   color:white;
   font-weight: 200;
 }
+div.friend_list{
+  
+}
+

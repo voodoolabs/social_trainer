@@ -5,4 +5,8 @@ class Like < ActiveRecord::Base
 
 	#VALIDATIONS
 	validates_presence_of :liker_id, :value
+
+  def to_boolean(str)
+      str == 'true'
+  end
 end
