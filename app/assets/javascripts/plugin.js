@@ -13,7 +13,8 @@ $(document).ready(function(){
     var vote = $(this).data('vote');
     var data = {post_id: post, value: vote};
     $.post(url, data, function(response){
-      $('div.score').html('<p>response.score</p>');
+      console.log(response);
+      $('div.score').html('response["score"]');
     });
   });
 });

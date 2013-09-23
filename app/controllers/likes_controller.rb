@@ -4,7 +4,7 @@ class LikesController < ApplicationController
   end
   
   def create
-    val = to_boolean(params[:value])
+    val = params[:value] == 'true'
     like = Like.create!(liker_id: params[:user_id], post_id: params[:post_id], value: val) 
     all_likes =  Post.find(params[:post_id]).likes.count
     {score: all_likes}.to_json
