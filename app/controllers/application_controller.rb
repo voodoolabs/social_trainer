@@ -8,15 +8,15 @@
   end
   helper_method :current_user
 
-  def banned?
-		self.banned_until > Time.now
-	end
-	helper_method :banned?
+ #  def banned?
+	# 	self.banned_until > Time.now
+	# end
+	# helper_method :banned?
 
-	def ban_user?
-		# if self.score <= -5
-		#   self.update(banned_until: Time.now + 24*60*60)
-		# end
-	end
-	helper_method :ban_user?
+	# def ban_user?
+	# 	# if self.score <= -5
+	# 	#   self.update(banned_until: Time.now + 24*60*60)
+	# 	# end
+	# end
+	# helper_method :ban_user?
 end
