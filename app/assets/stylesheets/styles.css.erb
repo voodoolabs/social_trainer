@@ -1,0 +1,247 @@
+/*Basic Layout*/
+
+html, body {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  background: -moz-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+background: -webkit-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Opera 12+ */
+background: -ms-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* IE10+ */
+background: radial-gradient(ellipse at center,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+.cover { 
+  height: 100%;
+  opacity:0.9;
+  background: url(w.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; padding-top: 100px;
+}
+nav > ul {
+  position: absolute;
+  right:10px;
+  top:10px;
+}
+nav >ul > li > a{
+  color:white;
+}
+nav > ul > li{
+  display: inline;
+  background:rgba(40,44,84,1);
+  border: none;
+  padding: 10px 50px;
+  box-shadow: inset 0px 0px 5px rgba(32,32,32,0.8);
+} 
+
+nav{
+  position: fixed;
+  top: 0;
+  left:0;
+  width: 100%;
+  height: 40px;
+  z-index:999;
+  background: rgba(255,255,255,0.8);
+}
+nav > h4{
+  position: absolute;
+  left:5px;
+  top:5px;
+  text-align: left;
+  background:rgba(40,44,84,1);
+  border: none;
+  padding: 0 80px 0 0px;
+  margin:0;
+  color:white;
+}
+nav > h4 > a {
+  color:white;
+  margin: 0 0px;
+}
+nav > h4 > a > img {
+  margin-right: 40px;
+  /*float: left;*/
+}
+nav,
+footer{
+  list-style: none;
+  font-weight: 500;
+  padding: 0; margin: 0;
+}
+
+/*Profile Page*/
+
+section.profile {
+    margin-top: 75px;
+    margin-left: 500px;
+    margin-right: 500px;
+    padding: 10px;
+    border: 1px solid black;
+    background-color: #E9EDF1;
+}
+
+/*Home Page */
+.centerwrap{
+  display: table;
+  margin:0 auto;
+}
+section.home {
+  padding: 5px;
+  text-align: center;
+  /*background:rgba(34,53,132,1);*/
+  width: 800px;
+  height: 400px;
+  margin: 30% auto;
+  box-shadow: 1px 1px 5px #5E5E5E;
+  background:rgba(34,53,132,1);
+background: -moz-radial-gradient(center, ellipse cover,  rgba(34,53,132,1) 0%, rgba(34,53,132,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(167,207,223,0.9)), color-stop(100%,rgba(34,53,132,1))); /* Chrome,Safari4+ */
+background: -webkit-radial-gradient(center, ellipse cover,  rgba(167,207,223,0.9) 0%,rgba(34,53,132,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-radial-gradient(center, ellipse cover,  rgba(167,207,223,0.9) 0%,rgba(34,53,132,1) 100%); /* Opera 12+ */
+background: -ms-radial-gradient(center, ellipse cover,  rgba(167,207,223,0.9) 0%,rgba(34,53,132,1) 100%); /* IE10+ */
+background: radial-gradient(ellipse at center,  rgba(167,207,223,0.9) 0%,rgba(34,53,132,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7cfdf', endColorstr='#23538a',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+
+}
+
+section.home > h2{
+  color: white;
+}
+div.new_post > form{
+  width
+}
+div.new_comment > form > p > textarea,
+div.new_post > form > p > textarea{
+  border: none;
+  width:100%;
+  height:80px;
+}
+div.new_post > form > p > input{
+  text-align: center;
+  width:100%;
+}
+div.new_post > form > p > input{
+  display: inline; 
+}
+div.new_comment > form > p > input[type="text"],
+div.new_post > form > p > input[type="text"]{
+  height:40px;
+  width: 100%;
+  background:rgba(14,33,102,1);
+  border: none;
+  padding: 8px 10px;
+  box-shadow: inset 0px 0px 5px rgba(32,32,32,0.8);
+}
+h4 a,h5 a,h6 a,h3 a,h2 a,h1 a,
+h4,h5,h6,h3,h2,h1{
+  font-weight: 100;
+  color:white;
+}
+
+section.home > form > p > input[type="text"],
+section.home > form > p > input[type="password"]{
+  width:400px;
+  height:40px;
+  background:rgba(14,33,102,1);
+  border: none;
+  padding: 8px 10px;
+  box-shadow: inset 0px 0px 5px rgba(32,32,32,0.8);
+}
+div.new_comment > form > p > input[type="submit"],
+div.new_post > form > p > input[type="submit"] {
+  background: rgba(44,40,54,1);
+  width:195px;
+  border:none;
+  padding: 5px 10px;
+  color:rgba(14,33,102,0.8);
+  color:white;
+  font-weight: 300;
+}
+section.home > form{
+  display: inline;
+}
+section.friend_list > form > input[type="submit"],
+section.home > form > input[type="submit"],
+section.home > button{
+  box-shadow: -1px 2px 1px rgba(232,232,232,1);
+  width:195px;
+  padding: 5px 10px;
+  color:rgba(14,33,102,1);
+  font-weight: 500;
+  border: none;
+  margin:0 5px;
+  background:rgba(255,255,255,1);
+}
+section.home > button{
+  display: inline;
+}
+section.friend_list,
+section.profile,
+section.feed{
+  background:rgba(255,255,255,0.8);
+  padding: 40px;
+  width: 80%;
+  min-width:500px;
+  margin:0 auto;
+  list-style: none;
+}
+
+section.friend_list h1,
+section.friend_list h2,
+section.friend_list h3,
+section.friend_list h4,
+section.friend_list h5,
+section.friend_list h6,
+section.friend_list a {
+  color:rgba(14,33,102,1);
+}
+
+section.profile h1,
+section.profile h2,
+section.profile h3,
+section.profile h4,
+section.profile h5,
+section.profile h6{
+  color:rgba(14,33,102,1);
+}
+
+section.profile ul,
+section.feed > ul{
+  list-style: none;
+}
+
+section.feed > ul > li {
+  background:rgba(14,33,102,0.9);
+  padding:20px;
+  color:white;
+  font-weight: 200;
+}
+section.feed > ul > ul > li > h5 > a > img,
+section.feed > ul > li > h3 > a > img{
+  margin-right: 20px;
+  background:rgba(40,44,84,0.8);
+}
+
+section.feed > ul > ul > li > h5 > a,
+section.feed > ul > li > h3 > a {
+ background:rgba(240,244,244,0.8);
+ padding: 5px 100px 5px 10px ;
+ font-weight: 400;
+ color:  rgba(40,44,84,1);
+}
+
+section.feed > ul > ul > li{
+  list-style:none;
+  background: rgba(40,44,84,0.9);
+  padding:10px 40px;
+  color:white;
+  font-weight: 200;
+}
+div.friend_list{
+  
+}
+
