@@ -11,7 +11,6 @@ background: -o-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rg
 background: -ms-radial-gradient(center, ellipse cover,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* IE10+ */
 background: radial-gradient(ellipse at center,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
 }
 .cover { 
   height: 100%;
@@ -112,7 +111,7 @@ section.home > h2{
   color: white;
 }
 div.new_post > form{
-  width
+  // width
 }
 div.new_comment > form > p > textarea,
 div.new_post > form > p > textarea{
