@@ -9,12 +9,13 @@ $(document).ready(function(){
   $('.vote').on("click", function(event){
     event.preventDefault();
     var url = $(this).attr('href');
+    console.log("'" + url + "'")
     var post = $(this).data('post-id');
+    console.log(post)
     var vote = $(this).data('vote');
-    var data = {post_id: post, value: vote};
-    $.post(url, data, function(response){
-      console.log(response);
-      $('div.score').html('response["score"]');
+    console.log(vote)
+    $.post(url, {value: vote}, function(data, response){
+      $('div.score').html(data);
     });
   });
 });

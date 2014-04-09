@@ -9,10 +9,10 @@
         <p class="posts"><%= post.text_field%></p>
         <hr>
         <h6><%= post.created_at %></h6>
-        <a href="/users/<%=current_user.id%>/posts/<%= post.id %>/likes" class="vote" data-vote="true" data-post-id="<%= post.id %>">
+        <a href="/users/<%=current_user.id %>/posts/<%= post.id %>/likes" class="vote" data-vote="true" data-post-id="<%= post.id %>">
           UpVote
         </a>
-        <a href="/users/<%=current_user.id%>/posts/<%= post.id %>/likes" class="vote" data-vote="false" data-post-id="<%= post.id %>">
+        <a href="/users/<%= current_user.id %>/posts/<%= post.id %>/likes" class="vote" data-vote="false" data-post-id="<%= post.id %>">
           DownVote
         </a>
         <div class="score"><%= post.likes.count %></div>

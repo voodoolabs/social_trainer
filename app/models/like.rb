@@ -5,6 +5,7 @@ class Like < ActiveRecord::Base
 
 	#VALIDATIONS
 	validates_presence_of :liker_id, :value
+	validates_uniqueness_of :liker_id, scope: :post_id
 
   def to_boolean(str)
       str == 'true'

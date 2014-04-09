@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20130920200327) do
     t.integer  "post_id"
     t.integer  "liker_id",   null: false
     t.integer  "comment_id"
-    t.boolean  "value"
+    t.string   "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

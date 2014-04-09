@@ -4,7 +4,7 @@ class CreateLikes < ActiveRecord::Migration
       t.integer :post_id
       t.integer :liker_id, null: false
       t.integer :comment_id
-      t.boolean :value
+      t.string :value
 
       t.timestamps
     end
